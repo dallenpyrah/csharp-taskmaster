@@ -11,9 +11,12 @@ namespace taskmaster.Controllers
     {
         private readonly ProfilesService _service;
 
-        public ProfilesController(ProfilesService service)
+        private readonly BoardsService _bservice;
+
+        public ProfilesController(ProfilesService service, BoardsService bservice)
         {
             _service = service;
+            _bservice = bservice;
         }
 
         [HttpGet("{id}")]
@@ -27,6 +30,19 @@ namespace taskmaster.Controllers
             catch (Exception e)
             {
                 return BadRequest(e.Message);
+            }
+        }
+
+        [HttpGet("{id}/boards")]
+        public ActionResult<BoardMemberViewModel> GetByProfileId(string id)
+        {
+            try
+            {
+                return Ok(_bservice.GetByProfileId(id));
+            }
+            catch (System.Exception err)
+            {
+                return BadRequest(err.Message);                
             }
         }
 

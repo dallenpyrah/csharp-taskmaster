@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using taskmaster.Models;
 using taskmaster.Repositorys;
 
@@ -58,6 +59,18 @@ namespace taskmaster.Services
                 _repo.DeleteOne(id);
                 return "Deleted";
             }
+        }
+
+        internal IEnumerable<BoardMemberViewModel> GetByProfileId(string id)
+        {
+            IEnumerable<BoardMemberViewModel> boards = _repo.GetBoardsByProfileId(id);
+            return boards.ToList().FindAll(b => b.Open);
+        }
+
+        internal IEnumerable<BoardMemberViewModel> GetByAccountId(string id)
+        {
+            return _repo.GetBoardsByProfileId(id);
+
         }
     }
 }

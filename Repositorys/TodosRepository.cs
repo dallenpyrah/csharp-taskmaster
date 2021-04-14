@@ -21,7 +21,7 @@ namespace taskmaster.Repositorys
             string sql = @"SELECT
             t.*,
             p.*
-            FROM todos t
+            FROM thetodos t
             JOIN profiles p ON t.creatorId = p.id;";
             return _db.Query<Todo, Profile, Todo>(sql, (todo, profile) =>
             {
@@ -35,7 +35,7 @@ namespace taskmaster.Repositorys
             string sql = @"SELECT
             t.*,
             p.*
-            FROM todos t
+            FROM thetodos t
             JOIN profiles p ON t.creatorId = p.id
             WHERE t.id = @id;";
             return _db.Query<Todo, Profile, Todo>(sql, (todo, profile) =>
@@ -47,10 +47,10 @@ namespace taskmaster.Repositorys
 
         internal Todo CreateOne(Todo newTodo)
         {
-            string sql = @"INSERT INTO todos
-            (title, description, creatorId)
+            string sql = @"INSERT INTO thetodos
+            (title, description, creatorId, boardId)
             VALUES
-            (@Title, @Description, @CreatorId);
+            (@Title, @Description, @CreatorId, @BoardId);
             SELECT LAST_INSERT_ID();";
             int id = _db.ExecuteScalar<int>(sql, newTodo);
             newTodo.Id = id;
@@ -59,7 +59,7 @@ namespace taskmaster.Repositorys
 
         internal Todo EditOne(Todo editTodo)
         {
-            string sql = @"UPDATE todos
+            string sql = @"UPDATE thetodos
             SET
                 title = @Title,
                 description = @Description
@@ -70,7 +70,7 @@ namespace taskmaster.Repositorys
 
         internal void DeleteOne(int id)
         {
-            string sql = "DELETE FROM todos WHERE id = @id LIMIT 1;";
+            string sql = "DELETE FROM thetodos WHERE id = @id LIMIT 1;";
             _db.Execute(sql, new { id });
         }
     }
