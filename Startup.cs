@@ -49,6 +49,8 @@ namespace taskmaster
       });
 
             services.AddScoped<IDbConnection>(x => CreateDbConnection());
+            services.AddTransient<TodosRepository>();
+            services.AddTransient<TodosService>();
             services.AddTransient<BoardsRepository>();
             services.AddTransient<BoardsService>();
             services.AddTransient<ProfilesRepository>();

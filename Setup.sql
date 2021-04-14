@@ -10,12 +10,26 @@ USE jobsapi;
 -- );
 
 
-CREATE TABLE boards 
+-- CREATE TABLE boards 
+-- (
+--     id INT NOT NULL AUTO_INCREMENT,
+--     title VARCHAR(255) NOT NULL,
+--     description VARCHAR(255) NOT NULL,
+--     open TINYINT(1),
+--     creatorId VARCHAR(255),
+
+--     PRIMARY KEY (id),
+
+--     FOREIGN KEY (creatorId)
+--     REFERENCES profiles (id)
+--     ON DELETE CASCADE
+-- )
+
+CREATE TABLE todos
 (
     id INT NOT NULL AUTO_INCREMENT,
     title VARCHAR(255) NOT NULL,
     description VARCHAR(255) NOT NULL,
-    open TINYINT(1),
     creatorId VARCHAR(255),
 
     PRIMARY KEY (id),
