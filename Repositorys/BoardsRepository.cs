@@ -73,5 +73,23 @@ namespace taskmaster.Repositorys
             string sql = "DELETE FROM boards WHERE id = @id LIMIT 1;";
             _db.Execute(sql, new { id });
         }
+
+        internal IEnumerable<BoardMemberViewModel> GetBoardsByProfileId(string id)
+        {
+            string sql = @"
+            SELECT
+            b.*,
+            bm.id AS BoardMemberId,
+            p.*
+            FROM boardmembers bm
+            JOIN boards b ON bm.boardId = b.id
+            JOIN profiles P ON bm.creatorId = p.id
+            WHERE bm.memberId = @id;";
+            return _db.Query<BoardMemberViewModel, Profile, BoardMemberViewModel>(sql, (boardMem, profile) =>
+            {
+                boardMem.Creator = profile;
+                return boardMem;
+            }, new { id }, splitOn: "id");
+        }
     }
 }
