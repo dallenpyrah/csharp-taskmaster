@@ -8,3 +8,19 @@ USE jobsapi;
 --   picture VARCHAR(255),
 --   PRIMARY KEY (id)
 -- );
+
+
+CREATE TABLE boards 
+(
+    id INT NOT NULL AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    description VARCHAR(255) NOT NULL,
+    open TINYINT(1),
+    creatorId VARCHAR(255),
+
+    PRIMARY KEY (id),
+
+    FOREIGN KEY (creatorId)
+    REFERENCES profiles (id)
+    ON DELETE CASCADE
+)
