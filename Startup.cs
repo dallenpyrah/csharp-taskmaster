@@ -55,6 +55,8 @@ namespace taskmaster
             services.AddTransient<BoardsService>();
             services.AddTransient<ProfilesRepository>();
             services.AddTransient<ProfilesService>();
+            services.AddTransient<BoardMembersRepository>();
+            services.AddTransient<BoardMembersService>();
         }
         private IDbConnection CreateDbConnection()
         {
